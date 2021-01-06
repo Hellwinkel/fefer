@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&display=swap');
+
+$primary-color: #ac0f5b; 
+$secondary-color: #ffffff;
+$third-color: #222222;
+$accent-color: #ac0f5b;
+$main-text: #3a3a3a;
+$main-link: #ac0f5b;
+$badge-color: #363636;
+$png-color: invert(20%) sepia(97%) saturate(4115%) hue-rotate(319deg) brightness(96%) contrast(92%);
+
+::-webkit-scrollbar {
+  width: 0px;
+  
+  @media screen and (min-width: 1200px) {
+    width: 7px;
+  }
+}
+
+::-webkit-scrollbar-track {
+  // background: darken($accent-color, 20%);
+  background: $secondary-color;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom right, $accent-color, darken($accent-color, 5%));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom right, lighten($accent-color, 5%), $accent-color);
+}
+
+.mobile-padding {
+  width: 100%;
+  height: 0px;
+  
+  @media screen and (max-width: 1199px) {
+    height: 80px;
+  }
+  
+  @media screen and (max-width: 639px) {
+    height: 60px;
+  }
+}
+
+.new-ui {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+
+  a {
+    text-decoration: none;
+    
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    &.hidden-overflow {
+      overflow-y: hidden;
+    }
+  }
+
+  .filter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 500;
+    // transition-delay: 50ms;
+    
+    &.show {
+      opacity: 1;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      transition-delay: 0ms;
+    }
+  }
+
+  ::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: transparentize($accent-color, 0.45);
+  }
+  
+  ::selection {
+    color: white;
+    background: transparentize($accent-color, 0.45);
+  }
+
+  .show-for-desktop {
+    @media screen and (max-width: 1199px) {
+      display: none !important;
+    }
+  }
+
+  .hide-for-desktop {
+    @media screen and (min-width: 1200px) {
+      display: none !important;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  // Slider arrow
+  .swiper-arrow {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    z-index: 25;
+    box-shadow: 0px 0px 0px 2px rgba(101, 101, 101, 0.65) inset;
+    border-radius: 50%;
+    background-image: url("../img/slider-arrow.svg");
+    background-position-y: center;
+    background-position-x: calc(50% + 2px);
+    background-size: 30%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    opacity: 0;
+    outline: none;
+
+    @media screen and (max-width: 425px) {
+      width: 35px !important;
+      height: 35px !important;
+      box-shadow: none !important;
+      background-size: 40%;
+      opacity: 0.6;
+
+      &:hover,
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .swiper-custom-button-prev {
+    left: 0;
+    transform: rotate(180deg);
+  }
+
+  .swiper-custom-button-next {
+    right: 0;
+  }
+
+  .swiper-arrow[tabindex="-1"] {
+    cursor: initial;
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+    transition: 150ms ease-out;
+  }
+
+  .swiper-arrow[tabindex="0"] {
+    cursor: initial;
+    width: 40px;
+    height: 40px;
+    opacity: 0.35;
+    cursor: pointer;
+    transition: 150ms ease-out;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0px 0px 0px 3px rgba(101, 101, 101, 1) inset;
+      opacity: 0.6;
+    }
+  }
+
+  @import 'navbar';
+  @import 'lgpd';
+
+  .main-container {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+
+    @media screen and (max-width: 1023px) {
+      .responsive-hidden-xl {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 639px) {
+      .responsive-hidden {
+        display: none;
+      }
+    }
+
+    @import 'brand-slider';
+    @import 'main-slider';
+    @import 'product-module';
+    @import 'image-grid';
+    @import 'newsletter';
+    @import 'footer';
+  }
+}
