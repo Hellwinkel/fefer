@@ -80,28 +80,54 @@ $(window).scroll(function () {
     } 
     
     if(!$(this).hasClass("grid-module") && !$(this).hasClass("small")) {
-      new Swiper(`.swiper-container#${id}`, {
-        centeredSlides: false,
-        loop: false,
-        slidesPerGroup: 1,
-        slidesPerView: 1,
-        spaceBetween: 25,
-        simulateTouch: false,
-        followFinger: true,
-        navigation: {
-          nextEl: `#${id}-swiper-next`,
-          prevEl: `#${id}-swiper-prev`,
-        },
-        breakpoints: {
-          750: { slidesPerView: 2 },
-          1045: { slidesPerView: 3 },
-          1335: { slidesPerView: 4 },
-          1625: { slidesPerView: 5 },
-          1915: { slidesPerView: 6 },
-          2205: { slidesPerView: 7 },
-          2495: { slidesPerView: 8 },
-        },
-      });
+
+      if($(this).hasClass("highlight")) {
+        new Swiper(`.swiper-container#${id}`, {
+          centeredSlides: true,
+          loop: true,
+          slidesPerGroup: 1,
+          slidesPerView: 1,
+          spaceBetween: 25,
+          simulateTouch: false,
+          followFinger: true,
+          navigation: {
+            nextEl: `#${id}-swiper-next`,
+            prevEl: `#${id}-swiper-prev`,
+          },
+          breakpoints: {
+            750: { slidesPerView: 2 },
+            1045: { slidesPerView: 3 },
+            1335: { slidesPerView: 3 },
+            1625: { slidesPerView: 4 },
+            1915: { slidesPerView: 5 },
+            2205: { slidesPerView: 6 },
+            2495: { slidesPerView: 7 },
+          },
+        });
+      } else {
+        new Swiper(`.swiper-container#${id}`, {
+          centeredSlides: false,
+          loop: false,
+          slidesPerGroup: 1,
+          slidesPerView: 1,
+          spaceBetween: 25,
+          simulateTouch: false,
+          followFinger: true,
+          navigation: {
+            nextEl: `#${id}-swiper-next`,
+            prevEl: `#${id}-swiper-prev`,
+          },
+          breakpoints: {
+            750: { slidesPerView: 2 },
+            1045: { slidesPerView: 3 },
+            1335: { slidesPerView: 4 },
+            1625: { slidesPerView: 5 },
+            1915: { slidesPerView: 6 },
+            2205: { slidesPerView: 7 },
+            2495: { slidesPerView: 8 },
+          },
+        });
+      }
     }
 
     console.log(id)

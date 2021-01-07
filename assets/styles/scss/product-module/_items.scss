@@ -1,0 +1,381 @@
+.module-products {
+  .item-container,
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    outline: none;
+    border-radius: 10px;
+    text-decoration: none;
+
+    @media screen and (max-width: 700px) {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media screen and (min-width: 640px) {
+      padding: 10px;
+      transition: 75ms ease-out;
+      transition-delay: 75ms;
+      transition-property: box-shadow, opacity;
+
+      &.blur {
+        transition-delay: 0ms;
+        opacity: 0.35;
+      }
+
+      &:hover,
+      &:focus {
+        transition-delay: 0ms;
+        box-shadow: 0px 0px 0px 2px transparentize(lighten($accent-color, 15%), 0.25);
+      }
+    }
+
+    .item {
+      width: 100%;
+      max-width: 350px;
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: space-between;
+
+      @media screen and (max-width: 699px) {
+        max-width: 280px;
+      }
+
+      .item-title-container {
+        width: 100%;
+        margin-bottom: 10px;
+        min-height: 2.9rem;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+
+        h3.item-title {
+          font-size: 1.125rem;
+          font-weight: 400;
+          line-height: 1.4;
+          display: inline-block;
+          max-width: 290px;
+          text-align: center;
+          color: #222222;
+          margin-bottom: 0px;
+
+          @media screen and (max-width: 425px) {
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .item-image {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 10px;
+        height: 100%;
+        position: relative;
+        margin-bottom: 10px;
+        max-height: 300px;
+        max-width: 300px;
+
+        img {
+          max-width: 90%;
+          max-height: 300px;
+          user-select: none;
+        }
+
+        .top-left-badge,
+        .top-right-badge,
+        .bottom-right-badge,
+        .bottom-left-badge {
+          position: absolute;
+
+          img {
+            max-width: 80px;
+          }
+
+          .free-ship {
+            padding: 5px 10px;
+            background-color: #0dc70e;
+            border-radius: 15px;
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 600;
+            user-select: none;
+          }
+
+          .discount {
+            padding: 5px 10px;
+            background-color: transparent;
+            border-radius: 15px;
+            color: lighten($accent-color, 15%);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 600;
+            user-select: none;
+            border: 1px dashed lighten($accent-color, 15%);
+
+            @media screen and (max-width: 639px) {
+              font-size: 0.625rem;
+            }
+          }
+        }
+
+        .top-left-badge {
+          top: 0px;
+          left: 0px;
+        }
+
+        .top-right-badge {
+          top: 0px;
+          right: 0;
+        }
+
+        .bottom-right-badge {
+          bottom: 0px;
+          right: 0;
+        }
+
+        .bottom-left-badge {
+          bottom: 0px;
+          left: 0;
+        }
+      }
+
+      .price-container {
+        width: 100%;
+
+        * {
+          letter-spacing: -0.01em;
+          text-align: center;
+        }
+
+        .big {
+          font-size: 1.25em;
+          font-weight: 600;
+        }
+
+        .accent-color {
+          color: $accent-color;
+        }
+
+        p.original-price {
+          font-size: 0.75rem;
+          margin-bottom: 5px;
+          color: rgb(168, 168, 168);
+
+          .striked {
+            text-decoration: line-through;
+          }
+        }
+
+        p.discount-price {
+          font-size: 1.125rem;
+          margin-bottom: 5px;
+          color: #222;
+
+          @media screen and (max-width: 1024px) {
+            font-size: 1rem;
+          }
+        }
+
+        p.installment-price {
+          font-size: 0.875rem;
+          color: #545454;
+          margin-bottom: 0px;
+
+          @media screen and (max-width: 1024px) {
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+  // 
+}
+
+&.small {
+  .module-products {
+    @media screen and (max-width: 1024px) {
+      .item-container,
+      .swiper-slide {
+        .item .item-title-container {
+          margin-bottom: 15px;
+
+          h3.item-title {
+            font-size: 1rem;
+            text-align: center;
+            line-height: 1.4;
+            min-height: 2.4rem;
+            margin: 0;
+          }
+
+          .item-image {
+            .top-left-badge {
+              img {
+                max-width: 60px;
+              }
+
+              .free-ship {
+                font-size: 0.625rem;
+              }
+            }
+
+            .top-right-badge {
+              .discount {
+                font-size: 0.625rem;
+              }
+            }
+          }
+
+          .price-container {
+            p.original-price {
+              font-size: 0.625rem;
+            }
+
+            p.discount-price {
+              font-size: 0.875rem;
+            }
+
+            p.installment-price {
+              font-size: 0.75rem;
+            }
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 470px) {
+      .item-container,
+      .swiper-slide {
+        .item {
+          height: 100%;
+
+          .item-title-container {
+            min-height: 2.05rem;
+
+            h3.item-title {
+              font-size: 0.875rem;
+              line-height: 1.4;
+              text-align: center;
+              min-height: auto;
+              height: auto;
+              margin-bottom: 0px;
+            }
+
+            .item-image {
+              .top-left-badge {
+                img {
+                  max-width: 60px;
+                }
+
+                .free-ship {
+                  font-size: 0.625rem;
+                }
+              }
+
+              .top-right-badge {
+                .discount {
+                  font-size: 0.625rem;
+                }
+              }
+            }
+          }
+
+          .price-container {
+            p.discount-price {
+              font-size: 0.875rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.fefer-link {
+  position: relative;
+  padding: 5px 12px;
+  min-width: auto;
+  clip-path: none;
+  background: transparent;
+  transition-delay: 0;
+  transition: 200ms;
+  border-radius: 7px;
+
+  &:before,
+  &:after {
+    position: absolute;
+    content: '';
+    background-color: transparent;
+    border: 1px solid transparentize(lighten($accent-color, 5%), 0.8);
+    clip-path: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 7px;
+    transform: rotate(3deg);
+    display: block !important;
+    transition-delay: 0;
+    transition: 200ms;
+  }
+
+  &:after {
+    border: 1px solid transparentize(lighten($accent-color, 5%), 0.6);
+    transform: rotate(-1deg);
+  }
+
+  span {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: lighten($accent-color, 10%);
+    font-weight: 500;
+    text-transform: lowercase;
+    display: flex !important;
+    transition-delay: 0;
+    transition: 200ms;
+    display: block !important;
+
+    @media screen and (max-width: 475px) {
+      font-size: 5vw;
+    }
+
+    @media screen and (max-width: 375px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background-color: transparentize(lighten($accent-color, 5%), 0.1);
+    animation: pulseProductButton 1500ms infinite;
+
+    span {
+      color: white;
+    }
+
+    &:before,
+    &:after {
+      animation: none;
+      transform: rotate(0deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulseProductButton {
+    0% {
+      box-shadow: 0px 0px 0px 1px transparentize(lighten($accent-color, 5%), 0.75);
+    }
+    50% {
+      box-shadow: 0px 0px 0px 8px transparentize(lighten($accent-color, 5%), 1);
+    }
+    100% {
+      box-shadow: 0px 0px 0px 1px transparentize(lighten($accent-color, 5%), 1);
+    }
+  }
+}

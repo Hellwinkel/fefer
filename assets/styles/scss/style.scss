@@ -203,9 +203,21 @@ $png-color: invert(20%) sepia(97%) saturate(4115%) hue-rotate(319deg) brightness
       }
     }
 
+    
+    @keyframes pulseButton {
+      0% {
+        box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.75);
+      } 50% {
+        box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0);
+      } 100% {
+        box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0);
+      }
+    }
+
     @import 'brand-slider';
     @import 'main-slider';
-    @import 'product-module';
+    @import 'product-module/main';
+    @import 'product-module/highlight';
     @import 'image-grid';
     @import 'newsletter';
     @import 'footer';
