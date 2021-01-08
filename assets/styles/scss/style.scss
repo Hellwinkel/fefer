@@ -219,6 +219,7 @@ $png-color: invert(20%) sepia(97%) saturate(4115%) hue-rotate(319deg) brightness
     @import 'product-module/main';
     @import 'product-module/highlight';
     @import 'image-grid';
+    @import 'small-image-grid';
     @import 'newsletter';
     @import 'footer';
   }
