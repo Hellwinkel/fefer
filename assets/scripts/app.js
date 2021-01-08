@@ -3,6 +3,12 @@ let overflowController = 0
 let scrollTop = 0
 
 $(document).ready(function () {
+  $('.item-title').each(function() {
+    if($(this).html().trim().length > 32) {
+      $(this).addClass('lower-title')
+    }
+  })
+
   // Fix VH in mobile devices
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -95,7 +101,7 @@ $(window).scroll(function () {
             prevEl: `#${id}-swiper-prev`,
           },
           breakpoints: {
-            750: { slidesPerView: 2 },
+            750: { slidesPerView: 1 },
             1045: { slidesPerView: 3 },
             1335: { slidesPerView: 3 },
             1625: { slidesPerView: 4 },
@@ -129,8 +135,6 @@ $(window).scroll(function () {
         });
       }
     }
-
-    console.log(id)
   });
 }
 
