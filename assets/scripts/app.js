@@ -1,10 +1,24 @@
 let filterController = 0
 let overflowController = 0
 let scrollTop = 0
+let saleDate = [
+  {
+    target: 'ofertas-de-inverno',
+    // timestamp: '1610564400'
+    timestamp: '1640401199'
+  },
+  {
+    target: 'ofertas-de-verao',
+    timestamp: '1610579993'
+    // timestamp: '1610478000'
+  }
+]
 
 $(document).ready(function () {
-  $('.item-title').each(function() {
-    if($(this).html().trim().length > 32) {
+  timer()
+
+  $('.item-title').each(function () {
+    if ($(this).html().trim().length > 32) {
       $(this).addClass('lower-title')
     }
   })
@@ -60,7 +74,7 @@ $(window).scroll(function () {
   $(".module").each(function () {
     let id = $(this).find('.swiper-container').attr("id")
 
-    if($(this).hasClass("small") && !$(this).hasClass("grid-module")) {
+    if ($(this).hasClass("small") && !$(this).hasClass("grid-module")) {
       new Swiper(`.swiper-container#${id}`, {
         centeredSlides: false,
         loop: false,
@@ -83,11 +97,11 @@ $(window).scroll(function () {
           2495: { slidesPerView: 8 },
         },
       });
-    } 
-    
-    if(!$(this).hasClass("grid-module") && !$(this).hasClass("small")) {
+    }
 
-      if($(this).hasClass("highlight")) {
+    if (!$(this).hasClass("grid-module") && !$(this).hasClass("small")) {
+
+      if ($(this).hasClass("highlight")) {
         new Swiper(`.swiper-container#${id}`, {
           centeredSlides: true,
           loop: true,
@@ -343,10 +357,10 @@ function toggleDropdown(e) {
   }
 }
 
-let timer
+let menuTimer
 
 $('body').on('mouseenter', '.dropdown', function (e) {
-  timer = setTimeout(function () {
+  menuTimer = setTimeout(function () {
     if (e.target.getAttribute('aria-expanded') !== 'true') {
       toggleDropdown(e)
     }
@@ -354,7 +368,7 @@ $('body').on('mouseenter', '.dropdown', function (e) {
 })
 
 $('body').on('mouseleave', '.dropdown', function (e) {
-  clearTimeout(timer)
+  clearTimeout(menuTimer)
   toggleDropdown(e)
 })
 
@@ -393,3 +407,173 @@ function destroyLGPD() {
   toggleFilter(false)
   toggleOverflow(false)
 }
+
+let finalTimer = []
+
+saleDate.map((e) => {
+  finalTimer.push({})
+})
+
+// Timer
+let firstLoop = true
+
+function timer() {
+  saleDate.map((item, index) => {
+    const timeLeft = calculateRemainingTime(item)
+    const isFullView = $(`.timer#${saleDate[index].target}-timer`).hasClass('full-view')
+    const target = saleDate[index].target
+
+    setRemainingTime(timeLeft, index, target, isFullView, firstLoop)
+    
+    finalTimer[index] = timeLeft
+  })
+
+  firstLoop = false
+}
+
+function calculateRemainingTime(element) {
+  let limitDate = new Date(element.timestamp * 1000)
+  let currentDate = new Date()
+
+  let secondsLeft = Math.abs(limitDate - currentDate) / 1000
+
+  let daysLeft = Math.floor(secondsLeft / 86400)
+  secondsLeft -= daysLeft * 86400
+
+  let hoursLeft = Math.floor(secondsLeft / 3600)
+  secondsLeft -= hoursLeft * 3600
+  hoursLeft = hoursLeft.toString().padStart(2, '0')
+
+  let minutesLeft = Math.floor(secondsLeft / 60)
+  secondsLeft -= minutesLeft * 60
+  minutesLeft = minutesLeft.toString().padStart(2, '0')
+
+  secondsLeft = Math.floor(secondsLeft)
+  secondsLeft = secondsLeft.toString().padStart(2, '0')
+
+  return {
+    days: daysLeft,
+    hours: hoursLeft,
+    minutes: minutesLeft,
+    seconds: secondsLeft
+  }
+}
+
+function setRemainingTime(object, index, target, fullView, isFirstTime) {
+  let daysLeft = object.days
+
+  for (element in object) {
+    let DOMTarget = $(`#${target}-${element}`)
+    const formatedTimer = timerResponse(fullView, element, object[element], daysLeft)
+
+    if(isFirstTime) {
+      if(formatedTimer.isVisible) {
+        DOMTarget.html(formatedTimer.response)
+        DOMTarget.removeClass('destroy')
+      } else {
+        DOMTarget.empty()
+        DOMTarget.addClass('destroy')
+      }
+    } else {
+      if(object[element] !== finalTimer[index][element]) {  
+        DOMTarget.removeClass('show')
+        DOMTarget.addClass('hide')
+        setTimeout(() => {
+          if(formatedTimer.isVisible) {
+            DOMTarget.html(formatedTimer.response)
+            DOMTarget.removeClass('destroy')
+          } else {
+            DOMTarget.empty()
+            DOMTarget.addClass('destroy')
+          }
+          DOMTarget.removeClass('hide')
+          DOMTarget.addClass('show')
+        }, 75)
+      }
+    }
+    
+  }
+}
+
+function timerResponse(isFullView, dataType, value, daysCount) {
+  if(isFullView) {
+    switch(dataType) {
+      case 'days':
+        switch(value) {
+          case 0:
+            return {
+              isVisible: false,
+              response: null
+            }
+          case 1:
+            return {
+              isVisible: true,
+              response: `${value} dia e&nbsp;`
+            }
+          default: 
+            return {
+              isVisible: true,
+              response: `${value} dias e&nbsp;`
+            }
+        }
+      case 'hours':
+        return {
+          isVisible: true,
+          response: `${value}:`
+        }
+      case 'minutes':
+        return {
+          isVisible: true,
+          response: `${value}:`
+        }
+      default:
+        return {
+          isVisible: true,
+          response: `${value}`
+        }
+    }
+  } else {
+    if(daysCount > 0) {
+      if(dataType === 'days') {
+        if(value === 1) {
+          return {
+            isVisible: true,
+            response: `${value} dia`
+          }
+        } else {
+          return {
+            isVisible: true,
+            response: `${value} dias`
+          }
+        }
+      } else {
+        return {
+          isVisible: false,
+          response: null
+        }
+      }
+    } else {
+      if(dataType === 'days') {
+        return {
+          isVisible: false,
+          response: null
+        }
+      } else {
+        switch(dataType) {
+          case 'seconds':
+            return {
+              isVisible: true,
+              response: value
+            }
+          default: 
+            return {
+              isVisible: true,
+              response: `${value}:`
+            }
+        }
+      }
+    }
+  }
+}
+
+setInterval(timer, 1000)
