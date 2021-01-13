@@ -14,6 +14,7 @@ let saleDate = [
 
 $(document).ready(function () {
   timer()
+  toggleWppButton()
 
   $('.item-title').each(function () {
     if ($(this).html().trim().length > 32) {
@@ -404,6 +405,7 @@ function destroyLGPD() {
   $('.lgpd-container').addClass('destroy')
   toggleFilter(false)
   toggleOverflow(false)
+  toggleWppButton()
 }
 
 let finalTimer = []
@@ -627,3 +629,11 @@ function timerResponse(isFullView, dataType, value, daysCount) {
 }
 
 setInterval(timer, 1000)
+
+
+// Show WhatsApp button only if LGPD is accepted
+function toggleWppButton() {
+  if($('.lgpd-container')[0] === undefined || $('.lgpd-container').hasClass('destroy')) {
+    $('.whatsapp-button').removeClass('hidden')
+  }
+}
