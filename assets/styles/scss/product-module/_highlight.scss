@@ -10,6 +10,7 @@
   background: linear-gradient(to bottom right, lighten(saturate($accent-color, 7%), 20%), lighten(saturate($accent-color, 4%), 17%));
   overflow: hidden;
   position: relative;
+  z-index: 145;
 
   @media screen and (max-width: 639px) {
     padding: 30px 10px 45px;
