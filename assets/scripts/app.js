@@ -4,13 +4,11 @@ let scrollTop = 0
 let saleDate = [
   {
     target: 'ofertas-de-inverno',
-    // timestamp: '1610564400'
     timestamp: '1640401199'
   },
   {
     target: 'ofertas-de-verao',
-    timestamp: '1610579993'
-    // timestamp: '1610478000'
+    timestamp: '1610485920'
   }
 ]
 
@@ -419,11 +417,24 @@ let firstLoop = true
 
 function timer() {
   saleDate.map((item, index) => {
-    const timeLeft = calculateRemainingTime(item)
-    const isFullView = $(`.timer#${saleDate[index].target}-timer`).hasClass('full-view')
+    const { isEarlier, timeLeft } = calculateRemainingTime(item)
+    const isFullView = $(`#${saleDate[index].target}-timer .timer-container`).hasClass('full-view')
     const target = saleDate[index].target
 
-    setRemainingTime(timeLeft, index, target, isFullView, firstLoop)
+    if(isEarlier) {
+      setRemainingTime(timeLeft, index, target, isFullView, firstLoop)
+    } else {
+      $(`#${saleDate[index].target}-timer .text`).text('Esta promoção encerrou')
+      $(`#${saleDate[index].target}-timer .timer-container`).remove()
+      $(`#${saleDate[index].target} .swiper-slide`).css('opacity', 0.65)
+      $(`#${saleDate[index].target} a`).css('cursor', 'not-allowed')
+      $(`#${saleDate[index].target} a`).attr('href', '')
+      $(`#${saleDate[index].target} a`).on('click', e => e.preventDefault())
+      $(`#${saleDate[index].target}-link`).css('opacity', 0.65)
+      $(`#${saleDate[index].target}-link`).attr('href', '')
+      $(`#${saleDate[index].target}-link`).on('click', e => e.preventDefault())
+      $(`#${saleDate[index].target}-link`).css('cursor', 'not-allowed')
+    }
     
     finalTimer[index] = timeLeft
   })
@@ -434,6 +445,8 @@ function timer() {
 function calculateRemainingTime(element) {
   let limitDate = new Date(element.timestamp * 1000)
   let currentDate = new Date()
+
+  const isEarlier = ((currentDate.getTime() / 1000) < +element.timestamp) ? true : false
 
   let secondsLeft = Math.abs(limitDate - currentDate) / 1000
 
@@ -452,10 +465,13 @@ function calculateRemainingTime(element) {
   secondsLeft = secondsLeft.toString().padStart(2, '0')
 
   return {
-    days: daysLeft,
-    hours: hoursLeft,
-    minutes: minutesLeft,
-    seconds: secondsLeft
+    isEarlier: isEarlier,
+    timeLeft: {
+      days: daysLeft,
+      hours: hoursLeft,
+      minutes: minutesLeft,
+      seconds: secondsLeft
+    }
   }
 }
 
@@ -463,7 +479,7 @@ function setRemainingTime(object, index, target, fullView, isFirstTime) {
   let daysLeft = object.days
 
   for (element in object) {
-    let DOMTarget = $(`#${target}-${element}`)
+    let DOMTarget = $(`#${target}-timer .highlight-timer-${element}`)
     const formatedTimer = timerResponse(fullView, element, object[element], daysLeft)
 
     if(isFirstTime) {
@@ -517,19 +533,53 @@ function timerResponse(isFullView, dataType, value, daysCount) {
             }
         }
       case 'hours':
-        return {
-          isVisible: true,
-          response: `${value}:`
+        if(daysCount > 0) {
+          switch (value) {
+            case '01':
+              return {
+                isVisible: true,
+                response: `${value} hora`
+              }
+            case '00':
+              return {
+                isVisible: false,
+                response: null
+              }
+            default:
+              return {
+                isVisible: true,
+                response: `${value} horas`
+              }
+          }
+        } else {
+          return {
+            isVisible: true,
+            response: `${value}:`
+          }
         }
       case 'minutes':
-        return {
-          isVisible: true,
-          response: `${value}:`
+        if(daysCount > 0) {
+          return {
+            isVisible: false,
+            response: null
+          }
+        } else {
+          return {
+            isVisible: true,
+            response: `${value}:`
+          }
         }
       default:
-        return {
-          isVisible: true,
-          response: `${value}`
+        if(daysCount > 0) {
+          return {
+            isVisible: false,
+            response: null
+          }
+        } else {
+          return {
+            isVisible: true,
+            response: `${value}`
+          }
         }
     }
   } else {

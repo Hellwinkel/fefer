@@ -86,7 +86,7 @@
         align-items: center;
       }
 
-      .timer {
+      .timer-container {
         display: inline-block;
         font-weight: 500;
         color: white;
@@ -119,7 +119,7 @@
           }
         }
 
-        .highlight-timer-day {
+        .highlight-timer-days {
           min-width: auto;
           justify-content: flex-start;
         }
