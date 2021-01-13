@@ -11,6 +11,8 @@
   overflow: hidden;
   transition: 125ms;
   padding: 10px;
+  display: flex;
+  flex-flow: column-reverse;
 
   .lgpd {
     width: 100%;
@@ -184,7 +186,7 @@
     margin-right:auto;
     bottom: 20px;
     display: flex;
-    flex-flow: row-reverse;
+    flex-flow: row;
     z-index: 200;
     align-items: center;
     justify-content: space-between;
