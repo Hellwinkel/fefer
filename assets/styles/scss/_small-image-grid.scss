@@ -10,7 +10,7 @@
     
     .small-image-grid {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
@@ -27,11 +27,7 @@
     }
 
     a {
-      margin-right: 15px;
-
-      &:last-child {
-        margin-right: 0px;
-      }
+      margin: 7.5px;
 
       @media screen and (max-width: 549px) {
         display: flex;
