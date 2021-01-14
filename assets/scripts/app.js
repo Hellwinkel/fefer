@@ -8,7 +8,7 @@ let saleDate = [
   },
   {
     target: 'ofertas-de-verao',
-    timestamp: '1610485920'
+    timestamp: '1610633160'
   }
 ]
 
@@ -420,11 +420,10 @@ let firstLoop = true
 function timer() {
   saleDate.map((item, index) => {
     const { isEarlier, timeLeft } = calculateRemainingTime(item)
-    const isFullView = $(`#${saleDate[index].target}-timer .timer-container`).hasClass('full-view')
     const target = saleDate[index].target
 
-    if(isEarlier) {
-      setRemainingTime(timeLeft, index, target, isFullView, firstLoop)
+    if (isEarlier) {
+      setRemainingTime(timeLeft, index, target, firstLoop)
     } else {
       $(`#${saleDate[index].target}-timer .text`).text('Esta promoção encerrou')
       $(`#${saleDate[index].target}-timer .timer-container`).remove()
@@ -437,7 +436,7 @@ function timer() {
       $(`#${saleDate[index].target}-link`).on('click', e => e.preventDefault())
       $(`#${saleDate[index].target}-link`).css('cursor', 'not-allowed')
     }
-    
+
     finalTimer[index] = timeLeft
   })
 
@@ -477,15 +476,15 @@ function calculateRemainingTime(element) {
   }
 }
 
-function setRemainingTime(object, index, target, fullView, isFirstTime) {
+function setRemainingTime(object, index, target, isFirstTime) {
   let daysLeft = object.days
 
   for (element in object) {
     let DOMTarget = $(`#${target}-timer .highlight-timer-${element}`)
-    const formatedTimer = timerResponse(fullView, element, object[element], daysLeft)
+    const formatedTimer = timerResponse(element, object[element], daysLeft)
 
-    if(isFirstTime) {
-      if(formatedTimer.isVisible) {
+    if (isFirstTime) {
+      if (formatedTimer.isVisible) {
         DOMTarget.html(formatedTimer.response)
         DOMTarget.removeClass('destroy')
       } else {
@@ -493,11 +492,11 @@ function setRemainingTime(object, index, target, fullView, isFirstTime) {
         DOMTarget.addClass('destroy')
       }
     } else {
-      if(object[element] !== finalTimer[index][element]) {  
+      if (object[element] !== finalTimer[index][element]) {
         DOMTarget.removeClass('show')
         DOMTarget.addClass('hide')
         setTimeout(() => {
-          if(formatedTimer.isVisible) {
+          if (formatedTimer.isVisible) {
             DOMTarget.html(formatedTimer.response)
             DOMTarget.removeClass('destroy')
           } else {
@@ -509,122 +508,40 @@ function setRemainingTime(object, index, target, fullView, isFirstTime) {
         }, 75)
       }
     }
-    
+
   }
 }
 
-function timerResponse(isFullView, dataType, value, daysCount) {
-  if(isFullView) {
-    switch(dataType) {
-      case 'days':
-        switch(value) {
-          case 0:
-            return {
-              isVisible: false,
-              response: null
-            }
-          case 1:
-            return {
-              isVisible: true,
-              response: `${value} dia e&nbsp;`
-            }
-          default: 
-            return {
-              isVisible: true,
-              response: `${value} dias e&nbsp;`
-            }
-        }
-      case 'hours':
-        if(daysCount > 0) {
-          switch (value) {
-            case '01':
-              return {
-                isVisible: true,
-                response: `${value} hora`
-              }
-            case '00':
-              return {
-                isVisible: false,
-                response: null
-              }
-            default:
-              return {
-                isVisible: true,
-                response: `${value} horas`
-              }
-          }
-        } else {
-          return {
-            isVisible: true,
-            response: `${value}:`
-          }
-        }
-      case 'minutes':
-        if(daysCount > 0) {
+function timerResponse(dataType, value, daysCount) {
+  switch (dataType) {
+    case 'days':
+      switch (value) {
+        case 0:
           return {
             isVisible: false,
             response: null
           }
-        } else {
+        case 1:
           return {
             isVisible: true,
-            response: `${value}:`
+            response: `${value} dia&nbsp;`
           }
-        }
-      default:
-        if(daysCount > 0) {
-          return {
-            isVisible: false,
-            response: null
-          }
-        } else {
+        default:
           return {
             isVisible: true,
-            response: `${value}`
+            response: `${value} dias&nbsp;`
           }
-        }
-    }
-  } else {
-    if(daysCount > 0) {
-      if(dataType === 'days') {
-        if(value === 1) {
-          return {
-            isVisible: true,
-            response: `${value} dia`
-          }
-        } else {
-          return {
-            isVisible: true,
-            response: `${value} dias`
-          }
-        }
-      } else {
-        return {
-          isVisible: false,
-          response: null
-        }
       }
-    } else {
-      if(dataType === 'days') {
-        return {
-          isVisible: false,
-          response: null
-        }
-      } else {
-        switch(dataType) {
-          case 'seconds':
-            return {
-              isVisible: true,
-              response: value
-            }
-          default: 
-            return {
-              isVisible: true,
-              response: `${value}:`
-            }
-        }
+    case 'seconds':
+      return {
+        isVisible: true,
+        response: `${value}`
       }
-    }
+    default:
+      return {
+        isVisible: true,
+        response: `${value}:`
+      }
   }
 }
 
@@ -633,7 +550,7 @@ setInterval(timer, 1000)
 
 // Show WhatsApp button only if LGPD is accepted
 function toggleWppButton() {
-  if($('.lgpd-container')[0] === undefined || $('.lgpd-container').hasClass('destroy')) {
+  if ($('.lgpd-container')[0] === undefined || $('.lgpd-container').hasClass('destroy')) {
     $('.whatsapp-button').removeClass('hidden')
   }
 }
