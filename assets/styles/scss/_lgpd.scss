@@ -110,6 +110,10 @@
   
   &.show {
     border-radius: 5px;
+    display: flex;
+    flex-flow: column-reverse;
+    align-items: center;
+    justify-content: flex-start;
 
     .lgpd {
       button {
@@ -121,10 +125,8 @@
 
         &.lgpd-accept {
           position: absolute;
-          bottom: 0;
-          right: 0;
-          left: 0;
-          margin: 0 auto 25px;
+          bottom: 20px;
+          left: calc(50% - 42px);
           padding: 5px 10px !important;
           font-size: 1rem;
           border: 1px solid rgba(255, 255, 255, 1);
@@ -209,6 +211,7 @@
         letter-spacing: 0.02em;
         transition: 200ms;
         margin-left: 15px;
+        margin-right: 0px;
 
         &:before {
           display: none;
