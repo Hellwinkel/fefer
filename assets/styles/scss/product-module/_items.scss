@@ -18,6 +18,7 @@
       transition: 75ms ease-out;
       transition-delay: 75ms;
       transition-property: box-shadow, opacity;
+      min-width: 248px;
 
       &.blur {
         transition-delay: 0ms;
@@ -64,7 +65,11 @@
           margin-bottom: 0px;
 
           &.lower-title {
-            font-size: 1rem;
+            font-size: 1rem !important;
+            
+            @media screen and (max-width: 639px) {
+              font-size: 0.875rem !important;
+            }
           }
 
           @media screen and (max-width: 425px) {
