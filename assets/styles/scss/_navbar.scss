@@ -273,6 +273,10 @@
         }
       }
 
+      .icon {
+        filter: saturate(0);
+      }
+
       .account {
         display: flex;
         flex-flow: row;

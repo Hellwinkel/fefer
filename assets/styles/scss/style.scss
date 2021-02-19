@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&display=swap');
 
-$primary-color: #ac0f5b; 
+$base-color: #1d1d1d;
+
+$primary-color: $base-color; 
 $secondary-color: #ffffff;
 $third-color: #222222;
-$accent-color: #ac0f5b;
+$accent-color: $base-color;
 $main-text: #3a3a3a;
-$main-link: #ac0f5b;
+$main-link: $base-color;
 $badge-color: #363636;
-$png-color: invert(20%) sepia(97%) saturate(4115%) hue-rotate(319deg) brightness(96%) contrast(92%);
+// $png-color: invert(20%) sepia(97%) saturate(4115%) hue-rotate(319deg) brightness(96%) contrast(92%);
+$png-color: invert(100%);
 
 ::-webkit-scrollbar {
   width: 0px;
