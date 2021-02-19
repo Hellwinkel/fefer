@@ -120,12 +120,12 @@
             padding: 5px 10px;
             background-color: transparent;
             border-radius: 15px;
-            color: lighten($accent-color, 15%);
+            color: $main-link;
             text-transform: uppercase;
             font-size: 0.75rem;
             font-weight: 600;
             user-select: none;
-            border: 1px dashed lighten($accent-color, 15%);
+            border: 1px dashed $main-link;
 
             @media screen and (max-width: 639px) {
               font-size: 0.625rem;
@@ -169,7 +169,7 @@
         }
 
         .accent-color {
-          color: $accent-color;
+          color: $main-link;
         }
 
         p.original-price {

@@ -246,7 +246,7 @@
       flex-flow: column;
       align-items: center;
       justify-content: flex-start;
-      margin: 15px 0px 30px;
+      margin: 15px 0px;
       height: auto;
       position: relative;
 
@@ -308,6 +308,15 @@
             left: calc(50% - 70px);
             bottom: 0;
             background-color: $accent-color;
+          }
+
+          a {
+            color: #222;
+            transition: 150ms;
+
+            &:focus, &:hover {
+              color: lighten($main-link, 5%);
+            }
           }
         }
       }

@@ -7,7 +7,7 @@
   flex-flow: column;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(to bottom right, lighten(saturate($accent-color, 7%), 20%), lighten(saturate($accent-color, 4%), 17%));
+  background: linear-gradient(to bottom right, lighten($accent-color, 9%), lighten($accent-color, 4%));
   overflow: hidden;
   position: relative;
   z-index: 145;
@@ -69,6 +69,15 @@
           bottom: 0;
           background-color: transparentize(white, 0.80);
         }
+
+        a {
+          color: white;
+          transition: 150ms;
+
+          &:focus, &:hover {
+            color: lighten($main-link, 5%);
+          }
+        }
       }
     }
     
@@ -103,6 +112,8 @@
           align-items: center;
           justify-content: center;
           transition: 150ms;
+          position: relative;
+          z-index: 165;
 
           &.show {
             animation: showTimer 75ms ease-out forwards;
@@ -241,7 +252,7 @@
 
   .detail {
     position: absolute;
-    opacity: 0.07;
+    opacity: 0.03;
     
     &.left {
       bottom: -110px;

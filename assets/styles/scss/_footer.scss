@@ -58,14 +58,14 @@
         left: -2%;
         width: 0px;
         height: 1px;
-        background-color: lighten($accent-color, 15%);
+        background-color: lighten($main-link, 100%);
         opacity: 0;
         transition: 200ms;
       }
 
       &:hover,
       &:focus {
-        color: lighten($accent-color, 15%);
+        color: lighten($main-link, 100%);
 
         &:after {
           width: 100%;
